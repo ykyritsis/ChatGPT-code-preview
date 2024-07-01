@@ -2,6 +2,7 @@ let previewContainer = null;
 let resizer = null;
 let currentCode = '';
 let currentLanguage = '';
+let isDarkMode = false;
 
 function createPreviewContainer() {
   previewContainer = document.createElement('div');
@@ -13,6 +14,9 @@ function createPreviewContainer() {
         <button class="view-option active" data-view="preview">Preview</button>
         <button class="view-option" data-view="code">Code</button>
       </div>
+      <button id="toggle-theme">
+        <span id="theme-icon">🌙</span>
+      </button>
       <button id="close-preview">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -48,6 +52,7 @@ function createPreviewContainer() {
   document.getElementById('close-preview').addEventListener('click', closePreview);
   document.getElementById('copy-code').addEventListener('click', copyCode);
   document.getElementById('download-code').addEventListener('click', downloadCode);
+  document.getElementById('toggle-theme').addEventListener('click', toggleTheme);
 
   document.querySelectorAll('.view-option').forEach(button => {
     button.addEventListener('click', (e) => changeView(e.target.dataset.view));
@@ -73,7 +78,6 @@ function copyCode() {
 function downloadCode() {
   let htmlContent = currentCode;
   
-  // If the language is CSS or JavaScript, wrap it in appropriate HTML tags
   if (currentLanguage === 'css') {
     htmlContent = `<html><head><style>${currentCode}</style></head><body><div>CSS applied to this div</div></body></html>`;
   } else if (currentLanguage === 'javascript') {
@@ -125,6 +129,14 @@ function setupResizer() {
   });
 }
 
+function toggleTheme() {
+  isDarkMode = !isDarkMode;
+  const themeIcon = document.getElementById('theme-icon');
+  themeIcon.textContent = isDarkMode ? '☀️' : '🌙';
+  previewContainer.classList.toggle('dark-mode', isDarkMode);
+  showPreview(currentCode, currentLanguage);
+}
+
 function showPreview(code, language, view = 'preview') {
   if (!previewContainer) {
     createPreviewContainer();
@@ -135,6 +147,9 @@ function showPreview(code, language, view = 'preview') {
 
   const previewContent = document.getElementById('preview-content');
   previewContent.innerHTML = '';
+
+  // Apply current theme
+  previewContainer.classList.toggle('dark-mode', isDarkMode);
 
   if (view === 'preview') {
     const iframe = document.createElement('iframe');
@@ -153,10 +168,15 @@ function showPreview(code, language, view = 'preview') {
         <html>
         <head>
           <style>
+            body { 
+              font-family: Arial, sans-serif; 
+              transition: background-color 0.3s, color 0.3s;
+            }
             #css-demo { 
               padding: 20px; 
               border: 1px solid #ccc; 
               margin-top: 10px; 
+              transition: all 0.3s;
             }
             .control-panel {
               margin-bottom: 20px;
@@ -165,18 +185,25 @@ function showPreview(code, language, view = 'preview') {
               display: block;
               margin-bottom: 10px;
             }
+            .dark-mode {
+              background-color: #1e1e1e;
+              color: #ffffff;
+            }
+            .dark-mode #css-demo {
+              border-color: #555;
+            }
           </style>
         </head>
-        <body>
+        <body class="${isDarkMode ? 'dark-mode' : ''}">
           <div class="control-panel">
             <h4>CSS Controls:</h4>
             <label>
               Background Color:
-              <input type="color" id="bgColor" value="#ffffff">
+              <input type="color" id="bgColor" value="${isDarkMode ? '#1e1e1e' : '#ffffff'}">
             </label>
             <label>
               Text Color:
-              <input type="color" id="textColor" value="#000000">
+              <input type="color" id="textColor" value="${isDarkMode ? '#ffffff' : '#000000'}">
             </label>
             <label>
               Font Size:
@@ -194,16 +221,25 @@ function showPreview(code, language, view = 'preview') {
         <html>
         <head>
           <style>
+            body { 
+              font-family: Arial, sans-serif;
+              transition: background-color 0.3s, color 0.3s;
+            }
             #js-output { 
               border: 1px solid #ccc; 
               padding: 10px; 
               margin-top: 10px; 
               white-space: pre-wrap; 
+              transition: all 0.3s;
             }
             #js-input { 
               width: 100%; 
               height: 100px; 
               margin-bottom: 10px; 
+              background-color: #f0f0f0;
+              color: #000000;
+              border: 1px solid #ccc;
+              transition: all 0.3s;
             }
             #run-js {
               padding: 5px 10px;
@@ -211,13 +247,26 @@ function showPreview(code, language, view = 'preview') {
               color: white;
               border: none;
               cursor: pointer;
+              transition: background-color 0.3s;
             }
             #run-js:hover {
               background-color: #45a049;
             }
+            .dark-mode {
+              background-color: #1e1e1e;
+              color: #ffffff;
+            }
+            .dark-mode #js-input {
+              background-color: #2d2d2d;
+              color: #ffffff;
+              border-color: #555;
+            }
+            .dark-mode #js-output {
+              border-color: #555;
+            }
           </style>
         </head>
-        <body>
+        <body class="${isDarkMode ? 'dark-mode' : ''}">
           <h4>JavaScript Playground:</h4>
           <textarea id="js-input" placeholder="Enter JavaScript code here..."></textarea>
           <button id="run-js">Run</button>
@@ -285,6 +334,10 @@ function showPreview(code, language, view = 'preview') {
   previewContainer.style.display = 'block';
   resizer.style.display = 'block';
   document.body.style.paddingRight = previewContainer.offsetWidth + 'px';
+
+  // Update theme toggle button
+  const themeIcon = document.getElementById('theme-icon');
+  themeIcon.textContent = isDarkMode ? '☀️' : '🌙';
 }
 
 function addPreviewButtons() {
