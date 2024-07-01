@@ -1,0 +1,228 @@
+.preview-button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #10a37f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+.preview-button:hover {
+  background-color: #1a7f64;
+}
+
+#code-preview-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+#preview-resizer {
+  position: fixed;
+  top: 0;
+  right: 40%;
+  width: 5px;
+  height: 100%;
+  background-color: #e5e5e5;
+  cursor: ew-resize;
+  z-index: 1001;
+  display: none;
+}
+
+#preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f7f7f8;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+#preview-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #202123;
+}
+
+#view-options {
+  display: flex;
+  gap: 10px;
+}
+
+.view-option {
+  background-color: transparent;
+  border: none;
+  color: #6e6e80;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.view-option:hover {
+  background-color: #f0f0f0;
+}
+
+.view-option.active {
+  background-color: #e5e5e5;
+  color: #202123;
+}
+
+#close-preview {
+  background-color: transparent;
+  border: none;
+  color: #6e6e80;
+  cursor: pointer;
+  padding: 5px;
+}
+
+#close-preview:hover {
+  color: #202123;
+}
+
+#preview-content {
+  height: calc(100% - 140px);
+  overflow: auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+#preview-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+#preview-footer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 20px 15px 30px 15px;
+  background-color: #f7f7f8;
+  border-top: 1px solid #e5e5e5;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.footer-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#copy-code {
+  background: linear-gradient(135deg, #2188ff, #0366d6);
+}
+
+#copy-code:hover {
+  background: linear-gradient(135deg, #0366d6, #044289);
+}
+
+#download-code {
+  background: linear-gradient(135deg, #34d058, #28a745);
+}
+
+#download-code:hover {
+  background: linear-gradient(135deg, #28a745, #22863a);
+}
+
+.footer-button svg {
+  width: 16px;
+  height: 16px;
+  stroke: white;
+}
+
+#copy-code.copied {
+  background: #28a745;
+}
+
+#code-preview-container pre,
+#code-preview-container code {
+  background-color: transparent !important;
+  color: #000000 !important;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  position: relative;
+  z-index: 1;
+}
+
+#code-preview-container .hljs {
+  background: transparent !important;
+  color: #000000;
+}
+
+/* Syntax highlighting */
+#code-preview-container .hljs-keyword,
+#code-preview-container .hljs-selector-tag,
+#code-preview-container .hljs-title,
+#code-preview-container .hljs-section,
+#code-preview-container .hljs-doctag,
+#code-preview-container .hljs-name,
+#code-preview-container .hljs-strong {
+  color: #000080;
+  background-color: transparent !important;
+}
+
+#code-preview-container .hljs-comment {
+  color: #008000;
+  background-color: transparent !important;
+}
+
+#code-preview-container .hljs-string,
+#code-preview-container .hljs-title,
+#code-preview-container .hljs-section,
+#code-preview-container .hljs-built_in,
+#code-preview-container .hljs-literal,
+#code-preview-container .hljs-type,
+#code-preview-container .hljs-addition,
+#code-preview-container .hljs-tag,
+#code-preview-container .hljs-quote,
+#code-preview-container .hljs-name,
+#code-preview-container .hljs-selector-id,
+#code-preview-container .hljs-selector-class {
+  color: #800000;
+  background-color: transparent !important;
+}
+
+#code-preview-container .hljs-meta,
+#code-preview-container .hljs-subst,
+#code-preview-container .hljs-symbol,
+#code-preview-container .hljs-regexp,
+#code-preview-container .hljs-attribute,
+#code-preview-container .hljs-deletion,
+#code-preview-container .hljs-variable,
+#code-preview-container .hljs-template-variable,
+#code-preview-container .hljs-link,
+#code-preview-container .hljs-bullet {
+  color: #000080;
+  background-color: transparent !important;
+}
+
+#code-preview-container .hljs-emphasis {
+  font-style: italic;
+  background-color: transparent !important;
+}
