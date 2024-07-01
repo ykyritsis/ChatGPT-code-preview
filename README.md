@@ -4,6 +4,8 @@
 
 The ChatGPT Code Preview Extension is a browser extension designed to enhance the coding experience on ChatGPT. It allows users to preview and interact with code snippets directly within the ChatGPT interface.
 
+![Screenshots](preview.png)
+
 ## Features
 
 1. **Live Code Preview**: Instantly see the output of HTML, CSS, and JavaScript code.
@@ -55,3 +57,4 @@ Feel free to contribute to this project by submitting pull requests or reporting
 ## License
 
 This project is licensed under the MIT License.
+
