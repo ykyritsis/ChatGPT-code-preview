@@ -73,24 +73,31 @@
   gap: 10px;
 }
 
-.close-btn, .dark-mode-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+button {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
   font-size: 14px;
-  width: 32px;
-  height: 32px;
-  padding: 0;
+  transition: all 0.3s ease;
 }
 
-.copy-btn, .download-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  padding: 8px 12px;
-  position: relative;
-  overflow: hidden;
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+.close-btn, .copy-btn, .download-btn, .reload-btn, .dark-mode-toggle {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.close-btn:hover, .copy-btn:hover, .download-btn:hover, .reload-btn:hover, .dark-mode-toggle:hover {
+  background-color: black;
+  color: white;
 }
 
 .preview-btn {
@@ -110,19 +117,51 @@
 }
 
 .copy-btn {
-  background-image: linear-gradient(to right, #3498db, #2980b9);
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 
 .copy-btn:hover {
-  background-image: linear-gradient(to right, #2980b9, #3498db);
+  background-color: black;
+  color: white;
+  border: 1px solid white;
 }
 
 .download-btn {
-  background-image: linear-gradient(to right, #4CAF50, #45a049);
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 
 .download-btn:hover {
-  background-image: linear-gradient(to right, #45a049, #4CAF50);
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.reload-btn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.reload-btn:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.copy-btn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.copy-btn:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
 }
 
 .dark-mode-toggle {
@@ -201,4 +240,143 @@ body {
 
 .copy-btn.copied::after, .download-btn.downloaded::after {
   transform: translateY(0);
+}
+
+.preview-tabs {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.tab-btn {
+  padding: 8px 12px;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.tab-btn:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+#code-preview-container.dark-mode .tab-btn {
+  color: black;
+}
+
+#code-preview-container.dark-mode .tab-btn:hover {
+  color: white;
+}
+
+#code-preview-container.dark-mode .tab-btn.active {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+#code-preview-container.dark-mode .tab-btn.active:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+#code-preview-code {
+  color: black;
+  background-color: white;
+  padding: 10px;
+  border-radius: 6px;
+  overflow: auto;
+}
+
+#code-preview-container.dark-mode #code-preview-code {
+  color: white;
+  background-color: #1e1e1e;
+}
+
+.reload-btn {
+  background-color: #6A5ACD;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.reload-btn:hover {
+  background-color: #836FFF;
+}
+
+/* Ensure the buttons have the desired black and white styling */
+.download-btn, .reload-btn, .copy-btn, .preview-btn, .tab-btn, .dark-mode-toggle, .close-btn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.download-btn:hover, .reload-btn:hover, .copy-btn:hover, .preview-btn:hover, .tab-btn:hover, .dark-mode-toggle:hover, .close-btn:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+/* Ensure icons within the buttons are visible */
+.download-btn svg, .reload-btn svg, .copy-btn svg, .preview-btn svg, .tab-btn svg, .dark-mode-toggle svg, .close-btn svg {
+  fill: black;
+}
+
+.download-btn:hover svg, .reload-btn:hover svg, .copy-btn:hover svg, .preview-btn:hover svg, .tab-btn:hover svg, .dark-mode-toggle:hover svg, .close-btn:hover svg {
+  fill: white;
+}
+
+/* Ensure tab text is black by default */
+.tab-btn {
+  color: black;
+}
+
+.tab-btn:hover {
+  color: white;
+}
+
+/* Ensure active tab text is white */
+.tab-btn.active {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.tab-btn.active:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+/* Ensure unselected tab text remains black */
+.tab-btn:not(.active) {
+  color: black;
+}
+
+.tab-btn:not(.active):hover {
+  color: white;
+}
+
+/* Ensure tab text remains black in dark mode */
+#code-preview-container.dark-mode .tab-btn {
+  color: black;
+}
+
+#code-preview-container.dark-mode .tab-btn:hover {
+  color: white;
 }
