@@ -193,8 +193,17 @@ function downloadCode(code) {
 }
 
 function addButtonsToExistingCodeBlocks() {
-  document.querySelectorAll('pre code').forEach(addButtons);
+  document.querySelectorAll('pre code').forEach(codeElement => {
+    // Check if there is a span with the text "bash" inside the code element
+    const hasBashSpan = Array.from(codeElement.querySelectorAll('span')).some(span => span.textContent.trim() === 'bash');
+
+    // Add buttons if there is no "bash" span
+    if (!hasBashSpan) {
+      addButtons(codeElement);
+    }
+  });
 }
+
 
 // Initial run
 addButtonsToExistingCodeBlocks();
