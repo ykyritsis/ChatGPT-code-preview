@@ -6,7 +6,7 @@ function addButtons(codeBlock) {
   const buttonsDiv = document.createElement('div');
   buttonsDiv.className = 'code-buttons';
 
-  const previewBtn = createButton('Preview Code66', () => togglePreview(codeBlock.textContent), 'preview-btn');
+  const previewBtn = createButton('Preview Code', () => togglePreview(codeBlock.textContent), 'preview-btn');
 
   buttonsDiv.append(previewBtn);
   codeBlock.parentNode.insertBefore(buttonsDiv, codeBlock.nextSibling);
