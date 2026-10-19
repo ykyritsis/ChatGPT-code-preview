@@ -1,10 +1,16 @@
-# ChatGPT Code Preview Extension
+# ChatGPT Code Preview
+
+A Chrome extension that renders HTML, CSS and JavaScript code blocks from ChatGPT in a resizable live preview panel — so you can see what the model wrote instead of copying it into an editor to find out.
+
+**117 stars · 10 forks.** An early take on the "artifacts" pattern, built in 2024 with a `MutationObserver` watching for newly injected code blocks.
+
+**Note:** previews may require a CSP-relaxing extension — see [Using CSP Unblock](#using-csp-unblock-extension) below.
 
 ## Overview
 
-The ChatGPT Code Preview Extension is a browser extension designed to enhance the coding experience on ChatGPT. It allows users to preview and interact with code snippets directly within the ChatGPT interface.
+Code blocks in ChatGPT gain a **Preview** tab that renders the output inline, with **Code**, **Copy** and **Download** controls alongside. The panel is resizable.
 
-![Screenshots](v1.3updated.png)
+![The preview panel running alongside a ChatGPT reply](preview.png)
 
 ## Features
 
@@ -16,7 +22,7 @@ The ChatGPT Code Preview Extension is a browser extension designed to enhance th
 
 ## Installation
 
-1. Download the extension files (manifest.json, content.js, and styles.css).
+1. Clone this repository or download the ZIP and unpack it — the extension is just `manifest.json`, `content.js` and `styles.css`, with no build step.
 2. Open your Chrome browser and navigate to `chrome://extensions/`.
 3. Enable "Developer mode" in the top right corner.
 4. Click "Load unpacked" and select the folder containing the extension files.
@@ -56,5 +62,5 @@ Feel free to contribute to this project by submitting pull requests or reporting
 
 ## License
 
-This project is licensed under the MIT License.
+MIT — see [LICENSE](LICENSE).
 
