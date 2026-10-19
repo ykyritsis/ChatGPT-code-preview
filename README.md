@@ -1,16 +1,24 @@
 # ChatGPT Code Preview
 
-A Chrome extension that renders HTML, CSS and JavaScript code blocks from ChatGPT in a resizable live preview panel — so you can see what the model wrote instead of copying it into an editor to find out.
+A Chrome extension that renders HTML, CSS and JavaScript code blocks from ChatGPT in a resizable live preview panel — so you can see what the model wrote instead of pasting it into an editor to find out.
 
-**117 stars · 10 forks.** An early take on the "artifacts" pattern, built in 2024 with a `MutationObserver` watching for newly injected code blocks.
+**117 stars · 10 forks.** Built in July 2024, roughly three months before ChatGPT gained a comparable capability.
 
 **Note:** previews may require a CSP-relaxing extension — see [Using CSP Unblock](#using-csp-unblock-extension) below.
 
-## Overview
-
-Code blocks in ChatGPT gain a **Preview** tab that renders the output inline, with **Code**, **Copy** and **Download** controls alongside. The panel is resizable.
-
 ![The preview panel running alongside a ChatGPT reply](preview.png)
+
+## Why this exists
+
+In July 2024 ChatGPT would show you a code block and let you copy it, but there was no way to *render* what the model had written. Ask for a layout, a chart or a small interactive widget and you got a wall of text that you then had to paste somewhere else to find out whether it worked.
+
+[Claude 3.5 Sonnet](https://www.anthropic.com/news/claude-3-5-sonnet) had shipped Artifacts on 20 June 2024, which made the gap obvious. I started this on 1 July and had v1.3 out the following day: a `MutationObserver` watching ChatGPT's DOM for newly injected code blocks, and a resizable preview panel injected beside each one that renders its HTML, CSS and JavaScript.
+
+OpenAI shipped [Canvas](https://openai.com/index/introducing-canvas/), its own version of the idea, on 3 October 2024 — roughly three months later. This repository is a snapshot of that gap rather than a maintained competitor to it, and ChatGPT's DOM has moved on considerably since.
+
+## What it does
+
+Each code block gains a **Preview** tab that renders the output inline, with **Code**, **Copy** and **Download** controls alongside. The panel is resizable.
 
 ## Features
 
@@ -56,9 +64,13 @@ To fully utilize the ChatGPT Code Preview Extension, you may need to use the CSP
 
 Remember to disable the CSP Unblock extension when you're not using ChatGPT or testing your extension. Removing CSP can significantly reduce a website's protection against certain types of attacks, so it should only be used when necessary and on trusted sites.
 
-## Contribution
+## Contributors
 
-Feel free to contribute to this project by submitting pull requests or reporting issues on the project's GitHub repository.
+Built by [Yiannis Kyritsis](https://github.com/ykyritsis) — 17 of the 18 commits, including all of the original design and implementation.
+
+One contribution from [@SapirKro](https://github.com/SapirKro) ([PR #3](https://github.com/ykyritsis/ChatGPT-code-preview/pull/3), August 2024), which hides the preview button for terminal-style code blocks that have no visual output to show.
+
+Pull requests and issues are welcome.
 
 ## License
 
