@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304" height="28" viewBox="0 0 304 28" role="img" aria-label="Chrome extension, Manifest V3, MIT">
+  <rect x="0" width="138" height="28" rx="6" fill="#1a73e8"/>
+  <text x="69.0" y="18.4" fill="#ffffff" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Chrome extension</text>
+  <rect x="146" width="100" height="28" rx="6" fill="#57606a"/>
+  <text x="196.0" y="18.4" fill="#ffffff" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Manifest V3</text>
+  <rect x="254" width="50" height="28" rx="6" fill="#2ea043"/>
+  <text x="279.0" y="18.4" fill="#ffffff" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" font-weight="600" text-anchor="middle">MIT</text>
+</svg>
