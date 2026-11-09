@@ -6,7 +6,7 @@ function addButtons(codeBlock) {
   const buttonsDiv = document.createElement('div');
   buttonsDiv.className = 'code-buttons';
 
-  const previewBtn = createButton('Preview Code', () => togglePreview(codeBlock.textContent), 'preview-btn');
+  const previewBtn = createButton('Preview Code', () => togglePreview(codeBlock.textContent, codeBlock), 'preview-btn');
 
   buttonsDiv.append(previewBtn);
   codeBlock.parentNode.insertBefore(buttonsDiv, codeBlock.nextSibling);
@@ -22,7 +22,61 @@ function createButton(text, onClick, className = '') {
   return button;
 }
 
-function togglePreview(code) {
+function detectLanguage(codeElement) {
+  if (!codeElement) return 'text';
+  const classes = codeElement.className || '';
+  const match = classes.match(/(?:language|lang)-(\w+)/);
+  if (match) return match[1].toLowerCase();
+  // Fallback: detect from content
+  const trimmed = codeElement.textContent.trim();
+  if (trimmed.startsWith('<!DOCTYPE') || trimmed.startsWith('<html') || /<\w+[^>]*>/.test(trimmed)) return 'html';
+  if (/^[.#@]?\w[\w-]*\s*\{/.test(trimmed) || /:\s*[\w#].*;/.test(trimmed)) return 'css';
+  return 'text';
+}
+
+function getFileExtension(language) {
+  const extensionMap = {
+    'html': '.html',
+    'htm': '.html',
+    'css': '.css',
+    'javascript': '.js',
+    'js': '.js',
+    'jsx': '.jsx',
+    'typescript': '.ts',
+    'ts': '.ts',
+    'tsx': '.tsx',
+    'json': '.json',
+    'xml': '.xml',
+    'svg': '.svg',
+    'python': '.py',
+    'py': '.py',
+    'java': '.java',
+    'c': '.c',
+    'cpp': '.cpp',
+    'csharp': '.cs',
+    'cs': '.cs',
+    'ruby': '.rb',
+    'rb': '.rb',
+    'go': '.go',
+    'rust': '.rs',
+    'rs': '.rs',
+    'php': '.php',
+    'sql': '.sql',
+    'markdown': '.md',
+    'md': '.md',
+    'yaml': '.yaml',
+    'yml': '.yaml',
+    'toml': '.toml',
+    'sh': '.sh',
+    'bash': '.sh',
+    'shell': '.sh',
+    'powershell': '.ps1',
+    'ps1': '.ps1',
+  };
+  return extensionMap[language] || '.txt';
+}
+
+function togglePreview(code, codeElement) {
   let previewContainer = document.getElementById('code-preview-container');
 
   if (previewContainer) {
@@ -61,7 +115,8 @@ function togglePreview(code) {
   const copyBtn = createButton('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>', () => copyCode(code), 'copy-btn');
   copyBtn.title = 'Copy';
 
-  const downloadBtn = createButton('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M5 20h14v-2H5v2zm7-18L5.33 11h3.67v6h4v-6h3.67L12 2z"/></svg>', () => downloadCode(code), 'download-btn');
+  const language = detectLanguage(codeElement);
+  const downloadBtn = createButton('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M5 20h14v-2H5v2zm7-18L5.33 11h3.67v6h4v-6h3.67L12 2z"/></svg>', () => downloadCode(code, language), 'download-btn');
   downloadBtn.title = 'Download';
 
   const reloadBtn = createButton('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.1-.22 2.14-.61 3.09l1.46 1.46C19.78 14.9 20 13.48 20 12c0-4.42-3.58-8-8-8zm-6.39 1.91L4.22 4.22C2.78 5.66 2 7.71 2 10c0 4.42 3.58 8 8 8v3l4-4-4-4v3c-3.31 0-6-2.69-6-6 0-1.1.22-2.14.61-3.09z"/></svg>', () => {
@@ -179,14 +234,24 @@ function copyCode(code) {
   });
 }
 
-function downloadCode(code) {
-  const blob = new Blob([code], { type: 'text/plain' });
+function downloadCode(code, language) {
+  const extension = getFileExtension(language || 'text');
+  const mimeTypes = {
+    '.html': 'text/html',
+    '.css': 'text/css',
+    '.js': 'text/javascript',
+    '.json': 'application/json',
+    '.xml': 'application/xml',
+    '.svg': 'image/svg+xml',
+  };
+  const mimeType = mimeTypes[extension] || 'text/plain';
+  const blob = new Blob([code], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'code.txt';
+  a.download = 'code' + extension;
   a.click();
-  URL.revokeObjectURL(url);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 
   const downloadBtn = document.querySelector('.download-btn');
   downloadBtn.classList.add('downloaded');
